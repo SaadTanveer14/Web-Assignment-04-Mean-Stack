@@ -1,0 +1,637 @@
+<head>
+    
+      <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      
+</head>
+
+
+
+<app-form (myEvent)="here($event)" ></app-form>
+
+<div  *ngIf="viewcheck==0">
+<!-- <div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    
+     <div class="col" >
+      <div class="card">
+          <img src="../../../assets/addimg.jpg" class="card-img-top blur" alt="..." >
+        
+          <div class="card-body" >
+            <h3 class="card-title">Add new vehicle</h3>
+            
+              <h5 class="addicon">PKR </h5>
+              <span class="material-symbols-outlined addicon addiconsize ">
+                add_box
+              </span>
+            
+            
+            <div style="display: flex"><span class="material-icons " style="color: rgb(85, 85, 141);">place</span><h6>location</h6></div>
+            
+            
+            
+            <p class="position-absolute bottom-0 end-0 greysmall">date</p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<br><br> -->
+
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    <div class="col" (click)="addVehicleForm()">
+      <div class="card">
+          <img src="../../../assets/addimg.jpg" class="card-img-top blur" alt="..." >
+        
+          <div class="card-body" >
+            <h3 class="card-title">Add new vehicle</h3>
+            
+              <h5 class="addicon">PKR </h5>
+              <span class="material-symbols-outlined addicon addiconsize ">
+                add_box
+              </span>
+            
+            
+            <div style="display: flex"><span class="material-icons " style="color: rgb(85, 85, 141);">place</span><h6>location</h6></div>
+            
+            
+            
+            <p class="position-absolute bottom-0 end-0 greysmall">date</p>
+          </div>
+        </div>
+    </div>
+    <div *ngFor="let vehicle of filteredVehicles">
+
+    
+    <div class="col" (click)="showVehicleDetails(vehicle)">
+      <div class="card">
+          <img src={{vehicle.image}} class="card-img-top" alt="..." >
+          
+          <div class="card-body" >
+            
+            <h3 class="card-title addicondel">{{vehicle.title}}</h3>
+            <span class="material-symbols-outlined position-absolute end-0 delicon" (click)="deleteVehicle($event,vehicle._id)">
+                delete
+            </span>
+            
+            
+            <h5 >PKR {{vehicle.price}}</h5>
+            <div style="display: flex"><span class="material-icons " style="color: rgb(85, 85, 141);">place</span><h6>{{vehicle.location}}</h6></div>
+            
+            <div style="display: flex">
+              <div *ngFor="let i of vehicle.rating">
+                  
+              
+                  <span ><img class="star" src="../../../assets/star.svg" alt=""></span>
+              
+              </div>
+          </div>
+            
+            <p class="position-absolute bottom-0 end-0 greysmall">{{vehicle.dateAdded}}</p>
+          </div>
+        </div>
+
+      
+    </div>
+  
+  </div>
+   
+  </div>
+</div>
+
+</div>
+
+
+
+<div class="container" *ngIf="viewcheck==1">
+  <div class="row">
+    <div class="col-8">
+      <div class="card">
+
+        <div class="card-body" >
+          
+          <h3 class="card-title ">{{detailview.title}}</h3>
+         
+        <div>
+          <button type="submit" class="btn btn-primary position-absolute end-0 top-0 rightmargin" style="margin-top: 10px;" (click)="goback()">Go Back</button>
+        </div>
+          <h5 class="addicondel">PKR {{detailview.price}}</h5>
+          <button type="submit" class="btn btn-primary position-absolute end-0 rightmargin" style="background: rgb(27, 27, 91);" (click)="updateScreen()">Update</button>
+          <div style="display: flex"><span class="material-icons " style="color: rgb(85, 85, 141);">place</span><h6>{{detailview.location}}</h6></div>
+          
+          <div style="display: flex">
+            <div *ngFor="let i of detailview.rating">
+                
+            
+                <span ><img class="star" src="../../../assets/star.svg" alt=""></span>
+            
+            </div>
+        </div>
+          
+          <p class="position-absolute bottom-0 end-0 greysmall">{{detailview.dateAdded}}</p>
+        </div>
+        <img src={{detailview.image}} class="card-img-top" alt="...">
+      
+        
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+      
+        <div class="card-body" >
+          <h3 class="card-title text-center">Seller Information</h3><hr>
+          <div class="row" style="display: flex" id="rowpadding">
+              <div class="col" style="display: flex">
+                <span class="material-icons" style="color: rgb(85, 85, 141);">place</span><h6><b>Location:</b></h6>
+              </div>
+              <div class="col" >
+                <h6>{{detailview.location}}</h6>
+              </div>
+          </div>
+
+          <div class="row" style="display: flex" id="rowpadding">
+            <div class="col" style="display: flex">
+              <span class="material-icons" style="color: rgb(85, 85, 141);">email</span><h6><b>Email:</b></h6>
+            </div>
+            <div class="col" >
+              <h6>Email</h6>            
+            </div>
+          </div>
+
+            <div class="row" style="display: flex" id="rowpadding">
+              <div class="col" style="display: flex">
+                <span class="material-icons" style="color: rgb(85, 85, 141);">phone</span><h6><b>Contact:</b></h6>
+              </div>
+              <div class="col" >
+                <h6>{{detailview.phoneno}}</h6>            
+              </div>
+            </div>
+
+            <div class="row" style="display: flex" id="rowpadding">
+              <div class="col" style="display: flex">
+                <span class="material-icons" style="color: rgb(85, 85, 141);">schedule</span><h6><b>Contact Hours:</b></h6>
+              </div>
+              <div class="col" >
+                <h6>8AM-10PM</h6>            
+              </div>
+            </div>
+          
+            <!-- <div *ngFor="let i of detailview.rating">
+
+                <span ><img class="star" src="../../../assets/star.svg" alt=""></span>
+            
+            </div> -->
+        </div>
+          
+          <p class="position-absolute bottom-0 end-0 greysmall">{{detailview.dateAdded}}</p>
+        </div>
+       
+      </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-2 text-center">
+          <span ><img class="detailicons " src="../../../assets/calendar.svg" alt=""></span>
+          <p>{{detailview.model}}</p>
+      </div>
+      <div class="col-2 text-center">
+        <span ><img class="detailicons" src="../../../assets/speed.svg" alt=""></span>
+        <p>{{detailview.mileage}}</p>
+      </div>
+      <div class="col-2 text-center" >
+        <span ><img class="detailicons" src="../../../assets/gas.svg" alt=""></span>
+        <p>{{detailview.fuel}}</p>
+      </div>
+      <div class="col-2 text-center">
+      <span ><img class="detailicons" src="../../../assets/gearshift.svg" alt=""></span>
+      <p>{{detailview.transmission}}</p>
+      </div>
+  
+    </div>
+
+
+
+      <div class="row">
+        <div class="col-8">
+          <div class="card">
+            <div class="card-body text-center" >
+
+              <div class="row" id="rowpadding">
+                <div class="col" style="display: flex">
+                  <div class="col" >
+                    <h6><b>RegisteredIn::</b></h6>
+                  </div>
+                  <div class="col">
+                    <h6>{{detailview.model}}</h6>
+                  </div>
+                </div>
+        
+                <div class="col" style="display: flex">
+                  <div class="col" >
+                    <h6><b>Color::</b></h6>
+                  </div>
+                  <div class="col">
+                    <h6>{{detailview.color}}</h6>
+                  </div>
+                </div>
+              </div>
+    
+                <div class="row" id="rowpadding">
+                  <div class="col" style="display: flex">
+                    <div class="col" >
+                      <h6><b>Assembly::</b></h6>
+                    </div>
+                    <div class="col">
+                      <h6>{{detailview.assembly}}</h6>
+                    </div>
+                  </div>
+          
+                  <div class="col" style="display: flex">
+                    <div class="col" >
+                      <h6><b>Engine Capacity::</b></h6>
+                    </div>
+                    <div class="col">
+                      <h6>{{detailview.engine}}</h6>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="row" id="rowpadding">
+                  <div class="col" style="display: flex">
+                    <div class="col" >
+                      <h6><b>Body Type::</b></h6>
+                    </div>
+                    <div class="col">
+                      <h6>{{detailview.bodytype}}</h6>
+                    </div>
+                  </div>
+          
+                  <div class="col" style="display: flex">
+                    <div class="col" >
+                      <h6><b>Last Updated::</b></h6>
+                    </div>
+                    <div class="col">
+                      <h6>{{detailview.dateAdded}}</h6>
+                    </div>
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+     
+          
+          
+
+      
+
+
+      
+      
+      
+      
+      
+    
+  
+  
+    <div class="row">
+      <div class="col-8">
+        <div class="card">
+        <div class="card-body" >
+          <h3 class="card-title">Overall Condition</h3>
+          <h6>Exterior and Body</h6>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{detailview.condition[0]}}%</div>
+          </div>
+
+          <h6>Interior</h6>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{detailview.condition[1]}}%</div>
+          </div>
+
+          <h6>Engine/Transmission/Clutch</h6>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{detailview.condition[2]}}%</div>
+          </div>
+
+          <h6>AC/Heater</h6>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{detailview.condition[3]}}%</div>
+          </div>
+
+          <h6>Suspension/Steering</h6>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{detailview.condition[4]}}%</div>
+          </div>
+        </div>
+        </div>
+
+
+        <div class="card">
+          <div class="card-body" >
+            <h3 class="card-title">Car Features</h3>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              <div *ngFor="let feature of detailview.features">
+                <div class="col">
+                  <li>{{feature}}</li>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body" >
+          <h3 class="card-title">Seller's Comment</h3>
+          <h6>{{detailview.comment}}</h6>
+              
+            </div>
+        </div>
+
+
+        
+            
+          
+
+      </div>
+    </div>
+
+    
+  </div>
+  
+
+  
+
+
+
+
+
+
+  <div class="container" id="nav" *ngIf="viewcheck==2">
+    <div class="card" >
+      <div class="card-body">
+        <h3 class="card-title">Edit Vehicle Information</h3>
+        <form #vehicleForm="ngForm"  (ngSubmit)="updateVehicle(vehicleForm.value); vehicleForm.reset()">
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="1">Model Year</label>
+              <input id="1" type="text" class="form-control" placeholder="Vehicle Make or Model" name="model" #name= "ngModel" [(ngModel)]="detailview.model">
+            </div>
+            <div class="col">
+              <label for="2">City</label>
+              <select id="2" class="form-select" aria-label="1" name="cities"   #name= "ngModel" [(ngModel)]="detailview.location">
+                <option disabled selected >Select-City</option>
+                <option value="Rawalpindi">Rawalpindi</option>
+                <option value="Islamabad">Islamabad</option>
+                <option value="Karachi">Karachi</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Quetta">Quetta</option>
+                <option value="Peshawar">Peshawar</option>
+                <option value="GujarKhan">GujarKhan</option>]
+                <option value="Multan">Multan</option>
+                <option value="GujarKhan">GujarKhan</option>
+                <option value="Gujranwala">Gujranwala</option>
+                <option value="Sialkot">Sialkot</option>
+                <option value="Hydrabad">Hydrabad</option>
+                <option value="Faisalabad">Faisalabad</option>
+                <option value="Gwadar">Gwadar</option>
+                <option value="Bhawalpur">Bhawalpur</option>
+
+              </select>
+            </div>
+            <div class="col">
+              <label for="3">Price</label>
+              <input id="3" type="text" class="form-control" placeholder="Price" name="price"  #name= "ngModel" [(ngModel)]="detailview.price">
+            </div>
+          </div>  
+        
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="4"> Phone#</label>
+              <input id="4" type="text" class="form-control" placeholder="Vehicle Make or Model" name="phoneno"  #name= "ngModel" [(ngModel)]="detailview.phoneno">
+              
+            </div>
+            <div class="col">
+              <label for="5"> Engine Capacity</label>
+              <input id="5" type="text" class="form-control" placeholder="Engine Capacity in CC for eg 2500CC" name="engine" #name= "ngModel" [(ngModel)]="detailview.engine">
+            </div>
+            <div class="col">
+              <label for="6">Color</label>
+              <select id="6" class="form-select" aria-label="Default select example" name="color"  #name= "ngModel" [(ngModel)]="detailview.color">
+                <option disabled selected>Select-Color</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Blue">Blue</option>
+                <option value="Green">Green</option>
+                <option value="Red">Red</option>
+                <option value="Silver">Silver</option>
+                <option value="Yellow">Yellow</option>
+              </select>
+            </div>
+          </div>  
+  
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="7">Transmission Type</label>
+              <select id="7" class="form-select"  aria-label="Default select example" name="transmission"  #name= "ngModel" [(ngModel)]="detailview.transmission">
+                <option disabled selected>Select-Transmission</option>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+              </select>          
+            </div>
+            <div class="col">
+              <label for="8">Body Type</label>
+              <select id="8" class="form-select" aria-label="Default select example" name="rating" #name= "ngModel" [(ngModel)]="detailview.bodytype">
+                <option disabled selected>Select-Body</option>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Truck">Truck</option>
+                <option value="Bike">Bike</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="9">Mileage</label>
+              <input id="9" type="text" class="form-control" placeholder="Mileage" name="mileage"  #name= "ngModel" [(ngModel)]="detailview.mileage">
+            </div>
+          </div>
+        
+  
+        <button type="submit" class="btn btn-primary position-absolute bottom-0 end-0 " style="background: rgb(27, 27, 91);">Update</button>
+        
+        </form>
+      
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="container" id="newVeh" *ngIf="viewcheck==3">
+    <div class="card" >
+      <div class="card-body">
+        <h3 class="card-title">Add New Vehicle AD</h3>
+        <form class="was-validated" #vehicleForm="ngForm"  (ngSubmit)="addVehicle(vehicleForm.value); ">
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="1">Model Year</label>
+              <input id="1" type="text" class="form-control is-invalid" required placeholder="Vehicle Make or Model" name="model" ngModel>
+            </div>
+            <div class="col">
+              <label for="2">City</label>
+              <select id="2" class="form-select is-invalid" required aria-label="1" name="cities"  ngModel>
+                <option disabled selected >Select-City</option>
+                <option value="Rawalpindi">Rawalpindi</option>
+                <option value="Islamabad">Islamabad</option>
+                <option value="Karachi">Karachi</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Quetta">Quetta</option>
+                <option value="Peshawar">Peshawar</option>
+                <option value="GujarKhan">GujarKhan</option>]
+                <option value="Multan">Multan</option>
+                <option value="GujarKhan">GujarKhan</option>
+                <option value="Gujranwala">Gujranwala</option>
+                <option value="Sialkot">Sialkot</option>
+                <option value="Hydrabad">Hydrabad</option>
+                <option value="Faisalabad">Faisalabad</option>
+                <option value="Gwadar">Gwadar</option>
+                <option value="Bhawalpur">Bhawalpur</option>
+
+              </select>
+            </div>
+            <div class="col">
+              <label for="3">Price</label>
+              <input id="3" type="text" class="form-control is-invalid" required placeholder="Price" name="price"  ngModel>
+            </div>
+          </div>  
+        
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="4"> Phone#</label>
+              <input id="4" type="text" class="form-control is-invalid" required placeholder="Vehicle Make or Model" name="phoneno"  ngModel>
+              
+            </div>
+            <div class="col">
+              <label for="5"> Engine Capacity</label>
+              <input id="5" type="text" class="form-control is-invalid" required placeholder="Engine Capacity in CC for eg 2500CC" name="engine" ngModel>
+            </div>
+            <div class="col">
+              <label for="6">Color</label>
+              <select id="6" class="form-select is-invalid" required aria-label="Default select example" name="color"  ngModel>
+                <option disabled selected>Select-Color</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Blue">Blue</option>
+                <option value="Green">Green</option>
+                <option value="Red">Red</option>
+                <option value="Silver">Silver</option>
+                <option value="Yellow">Yellow</option>
+              </select>
+            </div>
+          </div>  
+  
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="7">Transmission Type</label>
+              <select id="7" class="form-select is-invalid" required  aria-label="Default select example" name="transmission"  ngModel>
+                <option disabled selected>Select-Transmission</option>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+              </select>          
+            </div>
+            <div class="col">
+              <label for="8">Body Type</label>
+              <select id="8" class="form-select is-invalid" required aria-label="Default select example" name="type" ngModel>
+                <option disabled selected>Select-Body</option>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Truck">Truck</option>
+                <option value="Bike">Bike</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="9">Mileage</label>
+              <input id="9" type="text" class="form-control is-invalid" required placeholder="Mileage" name="mileage" ngModel>
+            </div>
+          </div>
+
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="10">Registration Status</label>
+              <select id="10" class="form-select is-invalid" required  aria-label="Default select example" name="registrationstatus"  ngModel>
+                <option disabled selected>Registration Status</option>
+                <option value="Registered">Registered</option>
+                <option value="Un-Registered">Un-Registered</option>
+              </select>          
+            </div>
+            <div class="col">
+              <label for="11">Fuel Type</label>
+              <select id="11" class="form-select is-invalid" required aria-label="Default select example" name="fuel" ngModel>
+                <option disabled selected>Select Fuel-type</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Gas">Gas</option>
+                <option value="Diesel">Diesel</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="12">Assembly Type</label>
+              <select id="12" class="form-select is-invalid" required aria-label="Default select example" name="assembly" ngModel>
+                <option disabled selected>Select Assembly-type</option>
+                <option value="Local">Local</option>
+                <option value="Imported">Imported</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="13">Enter Car-Company and Car-Name</label>
+              <input id="13" type="text" class="form-control is-invalid" required placeholder="Car-Name and Car-Company" name="title"  ngModel>          
+            </div>
+            <div class="col">
+              <label for="14">Enter today's date in format [Month Date Year]</label>
+              <input id="14" type="text" class="form-control is-invalid" required placeholder=" {Month Date Year}" name="dateAdded"  ngModel>          
+                
+            </div>
+            <div class="col">
+              
+              <label for="15">Enter Detailed Comment about your Vehicle</label>
+              <input id="15" type="text" class="form-control is-invalid" placeholder="Comment" name="comment"  ngModel required>          
+            </div>
+          </div>
+
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="16">Select From Available Pictures</label>
+              <select id="16" class="form-select is-invalid" required aria-label="Default select example" name="image" ngModel >
+                <option disabled selected>Select Picture</option>
+                <option value="../../assets/civiceg.jpg">../../assets/civiceg.jpg</option>
+                <option value="../../assets/oshan.webp">../../assets/oshal.webp</option>
+                <option value="../../assets/peugeot.jpg">../../assets/peugeot.jpg</option>
+                <option value="../../assets/lyriq.jpg">../../assets/lyriq.jpg</option>
+              </select>
+            </div>
+          </div>
+          
+          
+        
+  
+        <button type="submit" class="btn btn-primary position-absolute bottom-0 end-0 rightmargin bottommargin" style="background: rgb(27, 27, 91);" >Publish</button>
+        
+        </form>
+      <br>
+      </div>
+      
+    </div>
+  </div>
+
+  

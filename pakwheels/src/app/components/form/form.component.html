@@ -1,0 +1,102 @@
+<div class="container" id="nav">
+    <div class="card" >
+      <div class="card-body">
+        <form #vehicleForm="ngForm"  (ngSubmit)="onSubmit(vehicleForm.value); vehicleForm.reset()">
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Vehicle Make or Model" name="model" ngModel>
+            </div>
+            <div class="col">
+              <select id="6" class="form-select" aria-label="1" name="cities"  ngModel>
+                <option disabled selected >Select-City</option>
+                <option value="Rawalpindi">Rawalpindi</option>
+                <option value="Islamabad">Islamabad</option>
+                <option value="Karachi">Karachi</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Quetta">Quetta</option>
+                <option value="Peshawar">Peshawar</option>
+                <option value="GujarKhan">GujarKhan</option>]
+                <option value="Multan">Multan</option>
+                <option value="GujarKhan">GujarKhan</option>
+                <option value="Gujranwala">Gujranwala</option>
+                <option value="Sialkot">Sialkot</option>
+                <option value="Hydrabad">Hydrabad</option>
+                <option value="Faisalabad">Faisalabad</option>
+                <option value="Gwadar">Gwadar</option>
+                <option value="Bhawalpur">Bhawalpur</option>
+
+              </select>
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Price Range" name="price" ngModel>
+            </div>
+          </div>  
+        <div id="collapse1" class="collapse">
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="4"> City Area</label>
+              <input id="4" type="text" class="form-control" placeholder="Vehicle Make or Model" name="city" ngModel>
+              
+            </div>
+            <div class="col">
+              <label for="5"> Engine Capacity</label>
+              <input id="5" type="text" class="form-control" placeholder="Engine Capacity in CC for eg 2500CC" name="engine" ngModel>
+            </div>
+            <div class="col">
+              <label for="6">Color</label>
+              <select id="6" class="form-select" aria-label="Default select example" name="color" ngModel>
+                <option selected>Select-Color</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Blue">Blue</option>
+                <option value="Green">Green</option>
+                <option value="Red">Red</option>
+                <option value="Silver">Silver</option>
+                <option value="Yellow">Yellow</option>
+              </select>
+            </div>
+          </div>  
+  
+          <div class="row" id="rowpadding">
+            <div class="col">
+              <label for="7">Vehicle Type</label>
+              <select id="8" class="form-select" aria-label="Default select example" name="type" ngModel>
+                <option selected>Bike/Car</option>
+                <option value="Bike">Bike</option>
+                <option value="Car">Car</option>
+              </select>          
+            </div>
+            <div class="col">
+              <label for="8"> Rating</label>
+              <select id="8" class="form-select" aria-label="Default select example" name="rating" ngModel>
+                <option selected>Select-Rating</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+                <option value="5">Five</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="8">Mileage</label>
+              <input id="8" type="text" class="form-control" placeholder="Mileage" name="mileage" ngModel>
+            </div>
+          </div>
+        </div>
+  
+        <div style="display: flex">
+          <div style="display: flex" class="down" >
+  
+            <div (click)="myFunction()" style="display: flex"> 
+              <p style="margin-left: 10px;"  >More Search Options</p><span ><img  src="../../../assets/down.svg" ></span>
+            </div>
+            
+          </div>
+          <button type="submit" class="btn btn-primary position-absolute end-0 rightmargin">Search</button>
+        </div>
+        
+        </form>
+      
+      </div>
+    </div>
+  </div>
